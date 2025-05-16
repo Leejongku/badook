@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>반응형 이미지 깨짐 방지 예시</title>
+  <style>
+    .responsive-img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      border: 1px solid #ddd;
+      margin-bottom: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.07);
+      background: #fff;
+    }
+    h1 {text-align:center;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>반응형 이미지 깨짐 방지 예시</h1>
+    <p>아래 이미지는 <b>max-width:100% + height:auto + object-fit:contain</b> CSS로 항상 비율이 유지됩니다.</p>
+    <img class="responsive-img" src="https://flobi.cafe24.com/web/images/event/20250516/12.jpg" alt="테스트 이미지">
+    <img class="responsive-img" src="https://flobi.cafe24.com/web/images/event/20250516/14.jpg" alt="테스트 이미지">
+    <img class="responsive-img" src="https://flobi.cafe24.com/web/images/event/20250516/16.jpg" alt="테스트 이미지">
+    <p>브라우저 창 크기를 줄여도 이미지가 깨지지 않습니다.</p>
+  </div>
+</body>
+</html> 
