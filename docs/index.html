@@ -117,9 +117,10 @@
         .table-custom thead {
             background-color: #f8f9fa;
         }
-        .broken-thumb { max-width: 120px; border: 1px solid #ccc; margin-bottom: 4px; }
-        .broken-list { margin-top: 10px; }
-        .broken-list li { margin-bottom: 10px; }
+        .broken-thumb { max-width: 120px; border: 1px solid #ccc; margin: 4px; cursor:pointer; }
+        .broken-list { margin-top: 10px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+        .broken-list li { margin-bottom: 10px; list-style:none; }
+        .broken-count-link { color: #dc3545; text-decoration: underline; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -127,7 +128,7 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h1 class="mb-1">반응형 웹 테스트 결과</h1>
-                <div class="timestamp">테스트 일시: 2025년 05월 16일 22:45</div>
+                <div class="timestamp">테스트 일시: 2025년 05월 16일 22:50</div>
             </div>
             <button class="btn kakao-btn" onclick="sendReport()">
                 <i class="bi bi-chat-fill me-1"></i> 카카오톡으로 공유
@@ -169,8 +170,7 @@
                 <div class="accordion-body">
                     <div>테스트 결과: 성공 ✅</div>
                     <div>이미지 수: 30개</div>
-                    <div>깨진 이미지: 0개</div>
-                    
+                    <div>깨진 이미지: <span class="broken-count-link" onclick="showBrokenModal('Desktop')">0</span>개</div>
                 </div>
             </div>
         </div><div class="accordion-item">
@@ -183,8 +183,7 @@
                 <div class="accordion-body">
                     <div>테스트 결과: 성공 ✅</div>
                     <div>이미지 수: 30개</div>
-                    <div>깨진 이미지: 0개</div>
-                    
+                    <div>깨진 이미지: <span class="broken-count-link" onclick="showBrokenModal('Laptop')">0</span>개</div>
                 </div>
             </div>
         </div><div class="accordion-item">
@@ -197,8 +196,7 @@
                 <div class="accordion-body">
                     <div>테스트 결과: 실패 ❌</div>
                     <div>이미지 수: 30개</div>
-                    <div>깨진 이미지: 2개</div>
-                    
+                    <div>깨진 이미지: <span class="broken-count-link" onclick="showBrokenModal('Tablet')">2</span>개</div>
                 </div>
             </div>
         </div><div class="accordion-item">
@@ -211,8 +209,7 @@
                 <div class="accordion-body">
                     <div>테스트 결과: 실패 ❌</div>
                     <div>이미지 수: 30개</div>
-                    <div>깨진 이미지: 3개</div>
-                    
+                    <div>깨진 이미지: <span class="broken-count-link" onclick="showBrokenModal('Mobile')">3</span>개</div>
                 </div>
             </div>
         </div>
@@ -232,7 +229,6 @@
                                 <th>테스트 결과</th>
                                 <th>이미지 수</th>
                                 <th>깨진 이미지</th>
-                                <th>썸네일</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -242,32 +238,28 @@
             <td><a href="https://flobi.cafe24.com/index.html" target="_blank">사이트 링크</a></td>
             <td>성공 ✅</td>
             <td>30</td>
-            <td>0</td>
-            <td></td>
+            <td><span class="broken-count-link" onclick="showBrokenModal('Desktop')">0</span></td>
         </tr><tr>
             <td>Laptop</td>
             <td>1366x768:</td>
             <td><a href="https://flobi.cafe24.com/index.html" target="_blank">사이트 링크</a></td>
             <td>성공 ✅</td>
             <td>30</td>
-            <td>0</td>
-            <td></td>
+            <td><span class="broken-count-link" onclick="showBrokenModal('Laptop')">0</span></td>
         </tr><tr>
             <td>Tablet</td>
             <td>768x1024:</td>
             <td><a href="https://flobi.cafe24.com/index.html" target="_blank">사이트 링크</a></td>
             <td>실패 ❌</td>
             <td>30</td>
-            <td>2</td>
-            <td></td>
+            <td><span class="broken-count-link" onclick="showBrokenModal('Tablet')">2</span></td>
         </tr><tr>
             <td>Mobile</td>
             <td>375x667:</td>
             <td><a href="https://flobi.cafe24.com/index.html" target="_blank">사이트 링크</a></td>
             <td>실패 ❌</td>
             <td>30</td>
-            <td>3</td>
-            <td></td>
+            <td><span class="broken-count-link" onclick="showBrokenModal('Mobile')">3</span></td>
         </tr>
                         </tbody>
                     </table>
@@ -276,16 +268,15 @@
         </div>
     </div>
     
-    <!-- 스크린샷 모달 -->
-    <div class="modal fade" id="screenshotModal" tabindex="-1" aria-labelledby="screenshotModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+    <!-- 깨진 이미지 썸네일 모달 -->
+    <div class="modal fade" id="brokenModal" tabindex="-1" aria-labelledby="brokenModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="screenshotModalLabel">스크린샷 보기</h5>
+                    <h5 class="modal-title" id="brokenModalLabel">깨진 이미지 썸네일</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body text-center">
-                    <img src="" id="screenshotImage" class="img-fluid" alt="스크린샷">
+                <div class="modal-body" id="brokenModalBody">
                 </div>
             </div>
         </div>
@@ -294,166 +285,24 @@
     <!-- JavaScript 스크립트 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // 테스트 결과 데이터
-        const testData = [{"\uae30\uae30":"Desktop","\ud574\uc0c1\ub3c4":"1920x1080:","\ub108\ube44":"1920","\ub192\uc774":"1080:","\ud14c\uc2a4\ud2b8\ub9c1\ud06c":"https:\/\/flobi.cafe24.com\/index.html","\ud14c\uc2a4\ud2b8\uacb0\uacfc":"\uc131\uacf5 \u2705","\uc774\ubbf8\uc9c0_\uc218":30,"\uae68\uc9c4_\uc774\ubbf8\uc9c0_\uc218":0,"\uc2a4\ud06c\ub9b0\uc0f7":"","\ud0c0\uc784\uc2a4\ud0ec\ud504":"20250516"},{"\uae30\uae30":"Laptop","\ud574\uc0c1\ub3c4":"1366x768:","\ub108\ube44":"1366","\ub192\uc774":"768:","\ud14c\uc2a4\ud2b8\ub9c1\ud06c":"https:\/\/flobi.cafe24.com\/index.html","\ud14c\uc2a4\ud2b8\uacb0\uacfc":"\uc131\uacf5 \u2705","\uc774\ubbf8\uc9c0_\uc218":30,"\uae68\uc9c4_\uc774\ubbf8\uc9c0_\uc218":0,"\uc2a4\ud06c\ub9b0\uc0f7":"","\ud0c0\uc784\uc2a4\ud0ec\ud504":"20250516"},{"\uae30\uae30":"Tablet","\ud574\uc0c1\ub3c4":"768x1024:","\ub108\ube44":"768","\ub192\uc774":"1024:","\ud14c\uc2a4\ud2b8\ub9c1\ud06c":"https:\/\/flobi.cafe24.com\/index.html","\ud14c\uc2a4\ud2b8\uacb0\uacfc":"\uc2e4\ud328 \u274c","\uc774\ubbf8\uc9c0_\uc218":30,"\uae68\uc9c4_\uc774\ubbf8\uc9c0_\uc218":2,"\uc2a4\ud06c\ub9b0\uc0f7":"","\ud0c0\uc784\uc2a4\ud0ec\ud504":"20250516"},{"\uae30\uae30":"Mobile","\ud574\uc0c1\ub3c4":"375x667:","\ub108\ube44":"375","\ub192\uc774":"667:","\ud14c\uc2a4\ud2b8\ub9c1\ud06c":"https:\/\/flobi.cafe24.com\/index.html","\ud14c\uc2a4\ud2b8\uacb0\uacfc":"\uc2e4\ud328 \u274c","\uc774\ubbf8\uc9c0_\uc218":30,"\uae68\uc9c4_\uc774\ubbf8\uc9c0_\uc218":3,"\uc2a4\ud06c\ub9b0\uc0f7":"","\ud0c0\uc784\uc2a4\ud0ec\ud504":"20250516"}];
-        
-        // 페이지 로드 시 데이터 표시
-        document.addEventListener('DOMContentLoaded', function() {
-            renderCards();
-            renderAccordion();
-            renderTable();
-        });
-        
-        // 카드 렌더링 함수
-        function renderCards() {
-            const cardsContainer = document.getElementById('deviceCards');
-            testData.forEach((device, index) => {
-                const isSuccess = device.테스트결과.includes('성공');
-                
-                let deviceIcon = 'bi-display';
-                if (device.기기 === 'Laptop') deviceIcon = 'bi-laptop';
-                if (device.기기 === 'Tablet') deviceIcon = 'bi-tablet';
-                if (device.기기 === 'Mobile') deviceIcon = 'bi-phone';
-                
-                cardsContainer.innerHTML += `
-                    <div class="col-md-6 col-lg-3">
-                        <div class="card h-100">
-                            <div class="card-header">
-                                <span><i class="bi ${deviceIcon} me-2"></i>${device.기기}</span>
-                                <span class="badge ${isSuccess ? 'bg-success' : 'bg-danger'}">
-                                    ${isSuccess ? '성공' : '실패'}
-                                </span>
-                            </div>
-                            <img src="images/${device.기기}.png" class="card-img-top" 
-                                 onclick="openScreenshot('images/${device.기기}.png', '${device.기기} (${device.해상도})')" 
-                                 alt="${device.기기} 스크린샷">
-                            <div class="card-body">
-                                <h5 class="card-title">${device.해상도}</h5>
-                                <p class="card-text">
-                                    <small>발견된 이미지: ${device.이미지_수}개</small><br>
-                                    <small>깨진 이미지: ${device.깨진_이미지_수}개</small>
-                                </p>
-                                <a href="${device.테스트링크}" class="btn btn-sm btn-outline-primary" target="_blank">
-                                    <i class="bi bi-link-45deg"></i> 사이트 방문
-                                </a>
-                            </div>
-                        </div>
+        // 깨진 이미지 썸네일 데이터
+        const brokenImages = {};
+        // 모달 열기 함수
+        function showBrokenModal(device) {
+            const modal = new bootstrap.Modal(document.getElementById('brokenModal'));
+            const body = document.getElementById('brokenModalBody');
+            const imgs = brokenImages[device] || [];
+            if(imgs.length === 0) {
+                body.innerHTML = '<div class="text-center">깨진 이미지가 없습니다.</div>';
+            } else {
+                body.innerHTML = '<div class="broken-list">' + imgs.map(img => `
+                    <div style="display:inline-block;text-align:center;">
+                        <a href="${img.src}" target="_blank"><img class="broken-thumb" src="${img.src}" alt="썸네일"></a><br>
+                        <span style="font-size:0.9em;">${img.detail||''}</span>
                     </div>
-                `;
-            });
-        }
-        
-        // 아코디언 렌더링 함수
-        function renderAccordion() {
-            const accordion = document.getElementById('deviceAccordion');
-            testData.forEach((device, index) => {
-                const isSuccess = device.테스트결과.includes('성공');
-                
-                let deviceIcon = 'bi-display';
-                if (device.기기 === 'Laptop') deviceIcon = 'bi-laptop';
-                if (device.기기 === 'Tablet') deviceIcon = 'bi-tablet';
-                if (device.기기 === 'Mobile') deviceIcon = 'bi-phone';
-                
-                accordion.innerHTML += `
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="heading${index}">
-                            <button class="accordion-button ${index === 0 ? '' : 'collapsed'}" type="button" 
-                                    data-bs-toggle="collapse" data-bs-target="#collapse${index}" 
-                                    aria-expanded="${index === 0 ? 'true' : 'false'}" aria-controls="collapse${index}">
-                                <i class="bi ${deviceIcon} me-2"></i>
-                                <strong>${device.기기}</strong> (${device.해상도})
-                                <span class="badge ${isSuccess ? 'bg-success' : 'bg-danger'} ms-3">
-                                    ${isSuccess ? '성공 ✓' : '실패 ✗'}
-                                </span>
-                            </button>
-                        </h2>
-                        <div id="collapse${index}" class="accordion-collapse collapse ${index === 0 ? 'show' : ''}" 
-                             aria-labelledby="heading${index}" data-bs-parent="#deviceAccordion">
-                            <div class="accordion-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="detail-row">
-                                            <div class="detail-label">기기:</div>
-                                            <div>${device.기기}</div>
-                                        </div>
-                                        <div class="detail-row">
-                                            <div class="detail-label">해상도:</div>
-                                            <div>${device.해상도}</div>
-                                        </div>
-                                        <div class="detail-row">
-                                            <div class="detail-label">테스트 URL:</div>
-                                            <div>
-                                                <a href="${device.테스트링크}" target="_blank">${device.테스트링크}</a>
-                                            </div>
-                                        </div>
-                                        <div class="detail-row">
-                                            <div class="detail-label">테스트 결과:</div>
-                                            <div class="${isSuccess ? 'success' : 'failure'}">
-                                                ${device.테스트결과}
-                                            </div>
-                                        </div>
-                                        <div class="detail-row">
-                                            <div class="detail-label">이미지 수:</div>
-                                            <div>${device.이미지_수}개</div>
-                                        </div>
-                                        <div class="detail-row">
-                                            <div class="detail-label">깨진 이미지:</div>
-                                            <div>${device.깨진_이미지_수}개</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <img src="images/${device.기기}.png" class="img-thumbnail" 
-                                             onclick="openScreenshot('images/${device.기기}.png', '${device.기기} (${device.해상도})')" 
-                                             alt="${device.기기} 스크린샷">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-        
-        // 테이블 렌더링 함수
-        function renderTable() {
-            const tableBody = document.getElementById('resultsTable');
-            testData.forEach(device => {
-                const isSuccess = device.테스트결과.includes('성공');
-                
-                tableBody.innerHTML += `
-                    <tr>
-                        <td>${device.기기}</td>
-                        <td>${device.해상도}</td>
-                        <td><a href="${device.테스트링크}" target="_blank">사이트 링크</a></td>
-                        <td><span class="badge ${isSuccess ? 'bg-success' : 'bg-danger'}">
-                            ${isSuccess ? '성공' : '실패'}
-                        </span></td>
-                        <td>${device.이미지_수}</td>
-                        <td>${device.깨진_이미지_수}</td>
-                        <td>
-                            <button class="btn btn-sm btn-outline-primary" 
-                                   onclick="openScreenshot('images/${device.기기}.png', '${device.기기} (${device.해상도})')">
-                                <i class="bi bi-image"></i> 스크린샷
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            });
-        }
-        
-        // 스크린샷 모달 열기
-        function openScreenshot(imageSrc, title) {
-            const modal = new bootstrap.Modal(document.getElementById('screenshotModal'));
-            document.getElementById('screenshotModalLabel').textContent = title + ' 스크린샷';
-            document.getElementById('screenshotImage').src = imageSrc;
+                `).join('') + '</div>';
+            }
             modal.show();
-        }
-        
-        // 카카오톡 공유 함수
-        function sendReport() {
-            // 실제 카카오톡 공유 기능은 카카오 SDK 필요
-            // 여기서는 예시로 알림만 표시
-            alert('이 기능은 실제 환경에서는 카카오톡 SDK를 연동하여 구현해야 합니다.');
         }
     </script>
 </body>
