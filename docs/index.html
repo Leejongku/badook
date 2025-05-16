@@ -117,6 +117,9 @@
         .table-custom thead {
             background-color: #f8f9fa;
         }
+        .broken-thumb { max-width: 120px; border: 1px solid #ccc; margin-bottom: 4px; }
+        .broken-list { margin-top: 10px; }
+        .broken-list li { margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -124,7 +127,7 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h1 class="mb-1">반응형 웹 테스트 결과</h1>
-                <div class="timestamp">테스트 일시: 2025년 05월 16일 22:38</div>
+                <div class="timestamp">테스트 일시: 2025년 05월 16일 22:45</div>
             </div>
             <button class="btn kakao-btn" onclick="sendReport()">
                 <i class="bi bi-chat-fill me-1"></i> 카카오톡으로 공유
@@ -156,7 +159,63 @@
             <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
                 <h4 class="mb-4">기기별 상세 결과</h4>
                 <div class="accordion" id="deviceAccordion">
-                    <!-- 아코디언 항목들은 JavaScript로 채워집니다 -->
+                    <div class="accordion-item">
+            <h2 class="accordion-header" id="headingDesktop">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDesktop" aria-expanded="false" aria-controls="collapseDesktop">
+                    <strong>Desktop</strong> (1920x1080:)
+                </button>
+            </h2>
+            <div id="collapseDesktop" class="accordion-collapse collapse" aria-labelledby="headingDesktop" data-bs-parent="#deviceAccordion">
+                <div class="accordion-body">
+                    <div>테스트 결과: 성공 ✅</div>
+                    <div>이미지 수: 30개</div>
+                    <div>깨진 이미지: 0개</div>
+                    
+                </div>
+            </div>
+        </div><div class="accordion-item">
+            <h2 class="accordion-header" id="headingLaptop">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLaptop" aria-expanded="false" aria-controls="collapseLaptop">
+                    <strong>Laptop</strong> (1366x768:)
+                </button>
+            </h2>
+            <div id="collapseLaptop" class="accordion-collapse collapse" aria-labelledby="headingLaptop" data-bs-parent="#deviceAccordion">
+                <div class="accordion-body">
+                    <div>테스트 결과: 성공 ✅</div>
+                    <div>이미지 수: 30개</div>
+                    <div>깨진 이미지: 0개</div>
+                    
+                </div>
+            </div>
+        </div><div class="accordion-item">
+            <h2 class="accordion-header" id="headingTablet">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTablet" aria-expanded="false" aria-controls="collapseTablet">
+                    <strong>Tablet</strong> (768x1024:)
+                </button>
+            </h2>
+            <div id="collapseTablet" class="accordion-collapse collapse" aria-labelledby="headingTablet" data-bs-parent="#deviceAccordion">
+                <div class="accordion-body">
+                    <div>테스트 결과: 실패 ❌</div>
+                    <div>이미지 수: 30개</div>
+                    <div>깨진 이미지: 2개</div>
+                    
+                </div>
+            </div>
+        </div><div class="accordion-item">
+            <h2 class="accordion-header" id="headingMobile">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMobile" aria-expanded="false" aria-controls="collapseMobile">
+                    <strong>Mobile</strong> (375x667:)
+                </button>
+            </h2>
+            <div id="collapseMobile" class="accordion-collapse collapse" aria-labelledby="headingMobile" data-bs-parent="#deviceAccordion">
+                <div class="accordion-body">
+                    <div>테스트 결과: 실패 ❌</div>
+                    <div>이미지 수: 30개</div>
+                    <div>깨진 이미지: 3개</div>
+                    
+                </div>
+            </div>
+        </div>
                 </div>
             </div>
             
@@ -173,11 +232,43 @@
                                 <th>테스트 결과</th>
                                 <th>이미지 수</th>
                                 <th>깨진 이미지</th>
-                                <th>액션</th>
+                                <th>썸네일</th>
                             </tr>
                         </thead>
-                        <tbody id="resultsTable">
-                            <!-- 테이블 행들은 JavaScript로 채워집니다 -->
+                        <tbody>
+                            <tr>
+            <td>Desktop</td>
+            <td>1920x1080:</td>
+            <td><a href="https://flobi.cafe24.com/index.html" target="_blank">사이트 링크</a></td>
+            <td>성공 ✅</td>
+            <td>30</td>
+            <td>0</td>
+            <td></td>
+        </tr><tr>
+            <td>Laptop</td>
+            <td>1366x768:</td>
+            <td><a href="https://flobi.cafe24.com/index.html" target="_blank">사이트 링크</a></td>
+            <td>성공 ✅</td>
+            <td>30</td>
+            <td>0</td>
+            <td></td>
+        </tr><tr>
+            <td>Tablet</td>
+            <td>768x1024:</td>
+            <td><a href="https://flobi.cafe24.com/index.html" target="_blank">사이트 링크</a></td>
+            <td>실패 ❌</td>
+            <td>30</td>
+            <td>2</td>
+            <td></td>
+        </tr><tr>
+            <td>Mobile</td>
+            <td>375x667:</td>
+            <td><a href="https://flobi.cafe24.com/index.html" target="_blank">사이트 링크</a></td>
+            <td>실패 ❌</td>
+            <td>30</td>
+            <td>3</td>
+            <td></td>
+        </tr>
                         </tbody>
                     </table>
                 </div>
