@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이미지 깨짐 현상 예시</title>
+  <style>
+    .broken-img {
+      width: 100%;
+      height: 200px;
+      /* object-fit: contain;  // 일부러 주석처리 */
+      border: 1px solid #ddd;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.07);
+      background: #fff;
+    }
+    h1 {text-align:center;}
+    .caption {font-size:0.95em;color:#555;margin-bottom:8px;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>이미지 깨짐 현상 예시</h1>
+    <p>아래 이미지는 <b>object-fit 미적용</b> 상태로, 창 크기를 줄이면 비율이 깨집니다.</p>
+    <div class="caption">main_2.html 내 대표 이미지 예시</div>
+    <img class="broken-img" src="https://flobi.cafe24.com/web/images/event/20250516/12.jpg" alt="테스트 이미지">
+    <img class="broken-img" src="https://flobi.cafe24.com/web/images/event/20250516/14.jpg" alt="테스트 이미지">
+    <img class="broken-img" src="https://flobi.cafe24.com/web/images/event/20250516/16.jpg" alt="테스트 이미지">
+    <p>브라우저 창 크기를 줄이면 이미지가 찌그러지거나 깨지는 현상을 볼 수 있습니다.</p>
+    <pre style="background:#f8f9fa;border-radius:8px;padding:16px;">
+/* 깨진 이미지 예시 CSS */
+img {
+  width: 100%;
+  height: 200px;
+  /* object-fit: contain; */
+}
+    </pre>
+  </div>
+</body>
+</html> 
