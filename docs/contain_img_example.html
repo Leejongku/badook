@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>object-fit: contain 테스트 예시</title>
+  <style>
+    .ratio-box {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 비율 */
+      overflow: hidden;
+      margin-bottom: 24px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.07);
+      background: #eee;
+    }
+    .ratio-box img {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #fff;
+    }
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.07);
+    }
+    h1 {text-align:center;}
+    .caption {font-size:0.95em;color:#555;margin-bottom:8px;}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>object-fit: contain 테스트 예시</h1>
+    <p>아래 이미지는 <b>object-fit: contain</b>을 적용하여<br>이미지의 전체가 잘리지 않고 보입니다.<br>(컨테이너와 이미지 비율이 다르면 여백이 생길 수 있습니다)</p>
+    <div class="caption">main_2.html 내 대표 이미지 예시</div>
+    <div class="ratio-box">
+      <img src="https://flobi.cafe24.com/web/images/event/20250516/12.jpg" alt="테스트 이미지">
+    </div>
+    <div class="ratio-box">
+      <img src="https://flobi.cafe24.com/web/images/event/20250516/14.jpg" alt="테스트 이미지">
+    </div>
+    <div class="ratio-box">
+      <img src="https://flobi.cafe24.com/web/images/event/20250516/16.jpg" alt="테스트 이미지">
+    </div>
+    <p>브라우저 창 크기를 줄여도 이미지가 잘리지 않고, 전체가 보입니다.</p>
+    <pre style="background:#f8f9fa;border-radius:8px;padding:16px;">
+.ratio-box img {
+  object-fit: contain;
+}
+    </pre>
+  </div>
+</body>
+</html> 
